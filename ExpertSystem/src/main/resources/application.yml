@@ -1,0 +1,7 @@
+spring:
+  datasource:
+#    platform: postgres
+    username: postgres
+    password: 23happyme
+    url: jdbc:postgresql://localhost:5432/expert
+    driverClassName: org.postgresql.Driver
