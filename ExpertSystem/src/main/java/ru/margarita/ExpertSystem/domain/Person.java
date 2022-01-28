@@ -29,6 +29,4 @@ public class Person {
     @Column(name="phone_number")
     private int phoneNumber;
 
-    //где нужно писать метод, который парсит телефон? в сервисе?
-
 }

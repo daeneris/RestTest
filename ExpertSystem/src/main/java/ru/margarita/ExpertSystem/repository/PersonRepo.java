@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.margarita.ExpertSystem.domain.Person;
 
 @Repository
-public interface PersonRepo extends CrudRepository<Person, Long> {
+public interface PersonRepo extends CrudRepository<Person, Integer> {
 }

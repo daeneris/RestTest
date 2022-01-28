@@ -16,7 +16,7 @@ public class PersonService {
     }
 
     public Person getById(int id) {
-        return personRepo.findById((long)id).get();
+        return personRepo.findById(id).orElseThrow();
     }
 
     public Iterable<Person> getAll() {
@@ -24,11 +24,14 @@ public class PersonService {
     }
 
     public void update (Person person) {
-        Person personToUpdate = personRepo.findById((long)person.getId()).get();
+        Person personToUpdate = personRepo.findById(person.getId()).orElseThrow();
         personRepo.save(personToUpdate);
     }
 
-    public void delete (Person person) {
-        personRepo.delete(person);
+    public void delete (int id) {
+        Person personToDelete = personRepo.findById(id).orElseThrow();
+        personRepo.delete(personToDelete);
     }
+
+
 }

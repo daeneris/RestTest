@@ -19,18 +19,18 @@ public class DivisionController {
         return divisionService.create(division);
     }
 
-    @GetMapping
-    public Division read(@RequestBody Division division) {
-        return divisionService.getById(division.getId());
+    @GetMapping(value = "/{id}")
+    public Division read(@PathVariable int id) {
+        return divisionService.getById(id);
     }
 
     @GetMapping
-    public Iterable<Division> getAll(@RequestBody Division division) {
+    public Iterable<Division> getAll() {
         return divisionService.getAll();
     }
 
-    @DeleteMapping
-    public void delete (@RequestBody Division division) {
-        divisionService.delete(division);
+    @DeleteMapping(value = "/{id}")
+    public void delete (@PathVariable int id) {
+        divisionService.delete(id);
     }
 }

@@ -3,6 +3,7 @@ package ru.margarita.ExpertSystem.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.margarita.ExpertSystem.domain.Division;
+import ru.margarita.ExpertSystem.domain.Message;
 import ru.margarita.ExpertSystem.domain.Topic;
 import ru.margarita.ExpertSystem.repository.DivisionRepo;
 
@@ -21,11 +22,18 @@ public class DivisionService {
     }
 
     public Division getById(int id) {
-        return divisionRepo.findById((long)id).get();
+        return divisionRepo.findById(id).orElseThrow();
     }
 
-    public void delete (Division division) {
-        divisionRepo.delete(division);
+    public void update (Division division) {
+        Division divisionToUpdate = divisionRepo.findById(division.getId())
+                .orElseThrow(() ->new RuntimeException("Не найден раздел "+ division.getName()));
+        divisionRepo.save(divisionToUpdate);
+    }
+
+    public void delete (int id) {
+        Division divisionToDelete = divisionRepo.findById(id).orElseThrow();
+        divisionRepo.delete(divisionToDelete);
     }
 
 }

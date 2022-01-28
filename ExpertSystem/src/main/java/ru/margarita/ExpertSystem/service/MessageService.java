@@ -15,7 +15,7 @@ public class MessageService {
     }
 
     public Message getById(int id) {
-        return messageRepo.findById((long)id).get();
+        return messageRepo.findById(id).orElseThrow();
     }
 
     public Iterable<Message> getAll() {
@@ -23,11 +23,12 @@ public class MessageService {
     }
 
     public void update (Message message) {
-        Message messageToUpdate = messageRepo.findById((long) message.getId()).get();
+        Message messageToUpdate = messageRepo.findById(message.getId()).orElseThrow();
         messageRepo.save(messageToUpdate);
     }
 
-    public void delete (Message message) {
-        messageRepo.delete(message);
+    public void delete (int id) {
+        Message messageToDelete = messageRepo.findById(id).orElseThrow();
+        messageRepo.delete(messageToDelete);
     }
 }

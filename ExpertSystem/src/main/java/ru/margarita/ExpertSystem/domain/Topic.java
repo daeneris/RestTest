@@ -28,6 +28,4 @@ public class Topic {
     @JoinColumn(name="division_id")
     private Division division;
 
-    //зачем он требовал пустой конструктор? - гибернейт не умеет работать с конструкторами с аргументами
-
 }

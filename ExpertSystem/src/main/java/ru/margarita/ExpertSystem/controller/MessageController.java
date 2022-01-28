@@ -17,13 +17,13 @@ public class MessageController {
         return messageService.create(message);
     }
 
-    @GetMapping
-    public Message read(@RequestBody Message message) {
-        return messageService.getById(message.getId());
+    @GetMapping(value = "/{id}")
+    public Message read(@PathVariable int id) {
+        return messageService.getById(id);
     }
 
     @GetMapping
-    public Iterable<Message> getAll(@RequestBody Message message) {
+    public Iterable<Message> getAll() {
         return messageService.getAll();
     }
 
@@ -32,8 +32,8 @@ public class MessageController {
         messageService.update(message);
     }
 
-    @DeleteMapping
-    public void delete (@RequestBody Message message) {
-        messageService.delete(message);
+    @DeleteMapping(value="/{id} ")
+    public void delete (@PathVariable int id) {
+        messageService.delete(id);
     }
 }

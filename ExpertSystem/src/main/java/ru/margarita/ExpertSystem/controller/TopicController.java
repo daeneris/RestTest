@@ -16,13 +16,13 @@ public class TopicController {
         return topicService.create(topic);
     }
 
-    @GetMapping
-    public Topic read(@RequestBody Topic topic) {
-        return topicService.getById(topic.getId());
+    @GetMapping(value = "/{id}")
+    public Topic read(@PathVariable int id) {
+        return topicService.getById(id);
     }
 
     @GetMapping
-    public Iterable<Topic> getAll(@RequestBody Topic topic) {
+    public Iterable<Topic> getAll() {
         return topicService.getAll();
     }
 
@@ -31,8 +31,8 @@ public class TopicController {
         topicService.update(topic);
     }
 
-    @DeleteMapping
-    public void delete (@RequestBody Topic topic) {
-        topicService.delete(topic);
+    @DeleteMapping(value = "/{id}")
+    public void delete (@PathVariable int id) {
+        topicService.delete(id);
     }
 }
