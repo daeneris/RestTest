@@ -2,7 +2,7 @@ package ru.margarita.ExpertSystem.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.margarita.ExpertSystem.domain.Message;
+import ru.margarita.ExpertSystem.DTO.MessageDTO;
 import ru.margarita.ExpertSystem.service.MessageService;
 
 @RequestMapping("/api/message")
@@ -13,23 +13,23 @@ public class MessageController {
     private final MessageService messageService;
 
     @PostMapping
-    public Message create(@RequestBody Message message) {
-        return messageService.create(message);
+    public MessageDTO create(@RequestBody MessageDTO messageDTO) {
+        return messageService.create(messageDTO);
     }
 
     @GetMapping(value = "/{id}")
-    public Message read(@PathVariable int id) {
+    public MessageDTO read(@PathVariable int id) {
         return messageService.getById(id);
     }
 
     @GetMapping
-    public Iterable<Message> getAll() {
+    public Iterable<MessageDTO> getAll() {
         return messageService.getAll();
     }
 
     @PatchMapping
-    public void update (@RequestBody Message message) {
-        messageService.update(message);
+    public void update (@RequestBody MessageDTO messageDTO) {
+        messageService.update(messageDTO);
     }
 
     @DeleteMapping(value="/{id} ")

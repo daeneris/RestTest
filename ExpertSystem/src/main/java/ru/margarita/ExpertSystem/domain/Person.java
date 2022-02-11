@@ -1,6 +1,7 @@
 package ru.margarita.ExpertSystem.domain;
 
 import lombok.Getter;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name="person")
 public class Person {
@@ -23,10 +25,14 @@ public class Person {
     @Column(name = "nick_name")
     private  String nickName;
 
-    @Column(name="karma")
-    private int karma;
+    @Column(name="phone_number", unique = true)
+    private Integer phoneNumber;
 
-    @Column(name="phone_number")
-    private int phoneNumber;
+    @Column(name = "password")
+    private String password;
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private Role role;
 
 }

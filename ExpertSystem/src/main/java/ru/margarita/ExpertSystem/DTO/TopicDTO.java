@@ -1,20 +1,20 @@
 package ru.margarita.ExpertSystem.DTO;
 
+import lombok.Getter;
 import lombok.AllArgsConstructor;
-import ru.margarita.ExpertSystem.domain.Division;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
+@Getter
+@Setter
 @AllArgsConstructor
 public class TopicDTO {
+
+    private int id;
 
     private String name;
 
     private  String description;
 
-    @ManyToOne
-    @JoinColumn(name="division_id")
-    private Division division;
+    private Integer divisionId;
 }

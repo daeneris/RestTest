@@ -6,16 +6,12 @@ import ru.margarita.ExpertSystem.DTO.DivisionDTO;
 import ru.margarita.ExpertSystem.domain.Division;
 
 
-import java.util.List;
-
-@Mapper
+@Mapper (componentModel = "spring")
 public interface DivisionMapper {
 
-    @Mapping(source="division", target="division_id")
+
     DivisionDTO toDivisionDTO(Division division);
 
     Division toDivision (DivisionDTO divisionDTO);
-
-    List<Division> toDivisionDTOs (List<Division> division);
 
 }
