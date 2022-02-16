@@ -3,7 +3,6 @@ package ru.margarita.ExpertSystem.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.margarita.ExpertSystem.DTO.TopicDTO;
-import ru.margarita.ExpertSystem.domain.Topic;
 import ru.margarita.ExpertSystem.service.TopicService;
 
 @RequestMapping("/api/topic")
@@ -22,9 +21,11 @@ public class TopicController {
         return topicService.getById(id);
     }
 
+
     @GetMapping
-    public Iterable<TopicDTO> getAll() {
-        return topicService.getAll();
+    public Iterable<TopicDTO> getAll(@RequestParam (defaultValue = "0", required = false) int page,
+                                     @RequestParam (defaultValue = "30", required = false) int size) {
+        return topicService.getAll(page, size);
     }
 
     @PatchMapping

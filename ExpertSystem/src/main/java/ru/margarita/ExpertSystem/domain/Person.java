@@ -25,6 +25,9 @@ public class Person {
     @Column(name = "nick_name")
     private  String nickName;
 
+    @Column(name="karma")
+    private Integer karma;
+
     @Column(name="phone_number", unique = true)
     private Integer phoneNumber;
 

@@ -1,8 +1,11 @@
 package ru.margarita.ExpertSystem.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.margarita.ExpertSystem.DTO.TopicDTO;
+import ru.margarita.ExpertSystem.domain.Message;
 import ru.margarita.ExpertSystem.domain.Topic;
 import ru.margarita.ExpertSystem.mapper.TopicMapper;
 import ru.margarita.ExpertSystem.repository.TopicRepo;
@@ -27,14 +30,11 @@ public class TopicService {
         return topicMapper.toTopicDTO(topic);
     }
 
-    public Iterable<TopicDTO> getAll(){
-        Iterable<Topic> allTopic = topicRepo.findAll();
-        List<TopicDTO> allTopicDTO = null;
-        for (Topic topic:
-             allTopic) {
-           allTopicDTO.add(topicMapper.toTopicDTO(topic));
-        }
-        return allTopicDTO;
+    public Iterable<TopicDTO> getAll(Integer page, Integer size){
+
+        Page<Topic> topics = topicRepo.findAll(PageRequest.of(page, size));
+        return topics.map(topicMapper::toTopicDTO);
+
     }
 
     public void update (@org.jetbrains.annotations.NotNull TopicDTO topicDTO) {

@@ -11,12 +11,17 @@ public class ExpertSystemApplication {
 		SpringApplication.run(ExpertSystemApplication.class, args);
 	}
 
-	//где нужно писать метод, который парсит телефон (номер телефона, который мы получаем в Person)? в сервисе?
-	// (util - static class)
-	// допустим, нам нужно найти все сообщения у одного человека, где должен быть метод? В MessageService?
-	// создать еще роли для людей - пользователь, (автор темы), division_admin, super_admin
-	// в pom.xml - почему в плагинах lombok exclude? это вероятно из start.spring.io
+	// в табличке "карма" enum сохранены как тип данных text, это правильно?
+	// private Karma.Operation operation; - в KarmaDTO - это правильно?
 
+
+	//где нужно писать метод, который парсит телефон (номер телефона, который мы получаем в Person)? в сервисе?
+	//  - (util - static class)
+	// допустим, нам нужно найти все сообщения у одного человека, где должен быть метод?
+	// В MessageService?
+	// создать еще роли для людей - пользователь, (автор темы), division_admin, super_admin
 	// как в топиках сделать иерархию
-	// many-to-many топики-роли пользователей. id, user id, topic id, role/status
+
+
+
 }

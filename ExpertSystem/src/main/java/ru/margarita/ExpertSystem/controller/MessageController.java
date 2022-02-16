@@ -23,8 +23,9 @@ public class MessageController {
     }
 
     @GetMapping
-    public Iterable<MessageDTO> getAll() {
-        return messageService.getAll();
+    public Iterable<MessageDTO> getAll(@RequestParam (defaultValue = "0", required = false) int page,
+             @RequestParam (defaultValue = "30", required = false) int size ) {
+        return messageService.getAll(page, size);
     }
 
     @PatchMapping

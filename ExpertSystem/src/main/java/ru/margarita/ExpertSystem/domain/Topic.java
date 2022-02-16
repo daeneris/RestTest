@@ -30,4 +30,7 @@ public class Topic {
     @JoinColumn(name="division_id")
     private Division division;
 
+    @Column
+    private Integer karma;
+
 }

@@ -32,18 +32,10 @@ public class MessageService {
         return messageMapper.toMessageDTO(message);
     }
 
-    public Iterable<MessageDTO> getAll() {
-//        Iterable<Message> allMessage = messageRepo.findAll(Pageable.ofSize());
+    public Iterable<MessageDTO> getAll(int page, int size) {
 
-        Pageable firstPageWithElements = PageRequest.of(0, 30);
-        Page<Message> messages = messageRepo.findAll(Paging.of.firstPageWithElements);
-
-        Iterable<Message> allMessage = messageRepo.findAll();
-        List<MessageDTO> allMessageDTO = null;
-        for (Message message: allMessage) {
-            allMessageDTO.add(messageMapper.toMessageDTO(message));
-        }
-        return allMessageDTO;
+        Page<Message> messages = messageRepo.findAll(PageRequest.of(page,size));
+        return messages.map(messageMapper::toMessageDTO);
     }
 
     public void update (MessageDTO messageDTO) {

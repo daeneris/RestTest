@@ -31,4 +31,6 @@ public class Message {
     @JoinColumn(name = "topic_id")
     private Topic topic;
 
+    @Column
+    private Integer karma;
 }

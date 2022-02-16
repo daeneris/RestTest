@@ -17,4 +17,6 @@ public class TopicDTO {
     private  String description;
 
     private Integer divisionId;
+
+    private int karma;
 }
