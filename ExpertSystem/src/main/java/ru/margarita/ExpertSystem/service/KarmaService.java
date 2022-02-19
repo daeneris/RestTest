@@ -12,6 +12,7 @@ import ru.margarita.ExpertSystem.repository.KarmaRepo;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.margarita.ExpertSystem.domain.Karma.Operation.INCREASE;
 import static ru.margarita.ExpertSystem.domain.Karma.Type.TOPIC;
@@ -30,24 +31,24 @@ public class KarmaService {
         LocalDateTime dateTime = LocalDateTime.now();
         Integer amount = topicDTO.getKarma()+ADDKARMA;
 
+
         Karma karma = new Karma();
 
         karma.setOperation(INCREASE);
         karma.setType(TOPIC);
         karma.setDateTime(dateTime);
-        karma.setPersonFromID(fromPersonID);
-        karma.setPersonToID(toPersonID);
+        karma.setFromPersonID(fromPersonID);
+        karma.setToPersonID(toPersonID);
         karma.setAmount(amount);
         
     }
 
     public void distractKarma(){}
 
-    public List<KarmaDTO> getAnonKarma(PersonDTO personDTO) {
+    public List<KarmaDTO> getAnonKarma(Integer personID) {
         LocalDateTime showToDate = LocalDateTime.now().minusMonths(1);
-
-
-        return null;
+        List <Karma> karmaList = karmaRepo.findAllByToPersonIDAndDateTimeAfter(personID, showToDate);
+        return karmaList.stream().map(karmaMapper::toKarmaDTO).collect(Collectors.toList());
 
     }
 }

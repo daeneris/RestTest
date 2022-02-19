@@ -1,6 +1,9 @@
 package ru.margarita.ExpertSystem.configSecurity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -12,6 +15,7 @@ import java.io.IOException;
 
 import static io.jsonwebtoken.lang.Strings.hasText;
 
+@Component
 public class JWTFilter extends GenericFilterBean {
 
     public static final String AUTHORISATION = "Authorisation";
@@ -19,11 +23,20 @@ public class JWTFilter extends GenericFilterBean {
     @Autowired
     private JWTProvider jwtProvider;
 
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = getTokenFromRequest((HttpServletRequest) servletRequest);
+        if(token!=null && jwtProvider.validateToken(token)) {
+            String userLogin = jwtProvider.getLoginFromToken(token);
+            CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(userLogin);
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails,
+                    null, customUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        filterChain.doFilter(servletRequest, servletResponse);
 
     }
 

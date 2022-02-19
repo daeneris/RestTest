@@ -29,13 +29,13 @@ public class Person {
     private Integer karma;
 
     @Column(name="phone_number", unique = true)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Role role;
+   // @ManyToOne
+   // @JoinColumn(name="role_id")
+    private String role;
 
 }

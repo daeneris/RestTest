@@ -1,7 +1,7 @@
 package ru.margarita.ExpertSystem.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.margarita.ExpertSystem.DTO.PersonDTO;
@@ -10,11 +10,12 @@ import ru.margarita.ExpertSystem.domain.Role;
 import ru.margarita.ExpertSystem.mapper.PersonMapper;
 import ru.margarita.ExpertSystem.repository.PersonRepo;
 import ru.margarita.ExpertSystem.repository.RoleRepo;
+import ru.margarita.ExpertSystem.util.Roles;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PersonService {
     private final PersonRepo personRepo;
     private final PersonMapper personMapper;
@@ -22,13 +23,14 @@ public class PersonService {
 //    @Autowired
     private final RoleRepo roleRepo;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public Person findByLogin (Integer login) {
-        return personRepo.findByLogin(login);
+    // посмотреть, это нужно?
+    public Person findByLogin (String login) {
+        return personRepo.findByPhoneNumber(login);
     }
 
-    public Person findByLoginAndPassword (Integer login, String password) {
+    public Person findByLoginAndPassword (String login, String password) {
         Person person = findByLogin(login);
         if (person !=null) {
             if(passwordEncoder.matches(password,person.getPassword())) {
@@ -41,8 +43,8 @@ public class PersonService {
     public PersonDTO create (PersonDTO personDTO) {
         Person person = personMapper.toPerson(personDTO);
 
-        Role role = roleRepo.findByName("ROLE_USER");
-        person.setRole(role);
+  //      Role role = roleRepo.findByName("ROLE_USER");
+        person.setRole(Roles.USER);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
 
         person = personRepo.save(person);
@@ -50,8 +52,7 @@ public class PersonService {
     }
 
     public PersonDTO getByLogin(String login) {
-        Integer phoneNumber = Integer.parseInt(login);
-        Person person = personRepo.findByLogin(phoneNumber);
+        Person person = personRepo.findByPhoneNumber(login);
         return personMapper.toPersonDTO(person);
     }
 

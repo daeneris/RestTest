@@ -21,10 +21,12 @@ public class PersonDTO {
 
     private  String nickName;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     private String password;
 
-    private Integer roleId;
+   // private Integer roleId;
+
+    private String role;
 
 }

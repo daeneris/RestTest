@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
-    private Integer login;//login = phoneNumber
+    private String login;//login = phoneNumber
     private String password;
     private Collection<? extends GrantedAuthority> grantedAuthorities;
 
@@ -17,7 +17,7 @@ public class CustomUserDetails implements UserDetails {
         CustomUserDetails userDetails = new CustomUserDetails();
         userDetails.login = person.getPhoneNumber();
         userDetails.password = person.getPassword();
-        userDetails.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(person.getRole().getName()));
+        userDetails.grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
         return userDetails;
     }
 

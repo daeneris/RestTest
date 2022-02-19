@@ -14,10 +14,10 @@ public abstract class PersonMapper {
     @Autowired
     protected RoleRepo roleRepo;
 
-    @Mapping(target = "roleId", source = "person.role.id")
+//    @Mapping(target = "roleId", source = "person.role.id")
     public abstract PersonDTO toPersonDTO(Person person);
 
-    @Mapping(target = "role", expression = "java(roleRepo.findById(personDTO.getRoleId()).orElseThrow())")
+ //   @Mapping(target = "role", expression = "java(roleRepo.findById(personDTO.getRoleId()).orElseThrow())")
     public abstract Person toPerson(PersonDTO personDTO);
 
 }

@@ -30,10 +30,10 @@ public class Karma {
     private Type type;
 
     @Column(name="person_from_id")
-    private Integer personFromID;
+    private Integer fromPersonID;
 
     @Column(name="person_to_id")
-    private Integer personToID;
+    private Integer toPersonID;
 
     @Column (name="date_time")
     private LocalDateTime dateTime;

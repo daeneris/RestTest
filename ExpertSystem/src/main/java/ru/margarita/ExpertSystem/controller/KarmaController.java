@@ -23,7 +23,7 @@ public class KarmaController {
     }
 
     @GetMapping
-    public List<KarmaDTO> getKarma (@RequestBody PersonDTO personDTO) {
-       return karmaService.getAnonKarma(personDTO);
+    public List<KarmaDTO> getKarma (@RequestParam Integer personID) {
+       return karmaService.getAnonKarma(personID);
     }
 }
