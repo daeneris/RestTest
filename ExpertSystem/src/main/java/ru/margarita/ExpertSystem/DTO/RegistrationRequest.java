@@ -1,7 +1,7 @@
-package ru.margarita.ExpertSystem.configSecurity;
+package ru.margarita.ExpertSystem.DTO;
 
 import lombok.Data;
-import ru.margarita.ExpertSystem.domain.Person;
+
 //impot javax.validation.constrains.NotEmpty;
 
 @Data
@@ -13,5 +13,9 @@ public class RegistrationRequest {
 
   //  @NotEmpty
     private String password;
+
+    private String name;
+
+    private String nickName;
 
 }

@@ -1,4 +1,4 @@
-package ru.margarita.ExpertSystem.configSecurity;
+package ru.margarita.ExpertSystem.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -8,4 +8,6 @@ import ru.margarita.ExpertSystem.domain.Person;
 public interface PersonRepo extends JpaRepository <Person, Integer> {
 
     Person findByPhoneNumber (String login);
+
+    Person findByRefreshToken
 }

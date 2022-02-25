@@ -1,4 +1,4 @@
-package ru.margarita.ExpertSystem.configSecurity;
+package ru.margarita.ExpertSystem.DTO;
 
 import lombok.Data;
 

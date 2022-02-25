@@ -13,10 +13,11 @@ import ru.margarita.ExpertSystem.service.PersonService;
 public class PersonController {
     private final PersonService personService;
 
-    @PostMapping
-    public PersonDTO create(@RequestBody PersonDTO personDTO) {
-        return personService.create(personDTO);
-    }
+    // Этот метод здесь сейчас не нужен, т.к. создаем юзера через RegistrationRequest
+   // @PostMapping
+   // public PersonDTO create(@RequestBody PersonDTO personDTO) {
+   //     return personService.create(personDTO);
+   // }
 
     @GetMapping(value = "/{id}")
     public PersonDTO read(@PathVariable int id) {

@@ -1,4 +1,4 @@
-package ru.margarita.ExpertSystem.configSecurity;
+package ru.margarita.ExpertSystem.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

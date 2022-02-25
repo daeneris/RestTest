@@ -23,7 +23,7 @@ public class Person {
     private String name;
 
     @Column(name = "nick_name")
-    private  String nickName;
+    private String nickName;
 
     @Column(name="karma")
     private Integer karma;
@@ -38,4 +38,6 @@ public class Person {
    // @JoinColumn(name="role_id")
     private String role;
 
+    @Column(name="refresh_token")
+    private String refreshToken;
 }
