@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+    rest_service:
+        build: ./
+        environment:
+            POSTGRES_HOST: "devpg"
+        ports:
+         - 8080:8080
+    devpg:
+        container_name: dev-postgres
+        image: postgres:12-alpine
+        volumes:
+            - ~/docker/volumes/example/postgres:/var/lib/postgresql/data/
+        command:
+            - 'postgres'
+            - '-c'
+            - 'max_prepared_transactions=100'
+        ports:
+            - 5433:5432
+        environment:
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "23happyme"
+        networks:
+            - default
