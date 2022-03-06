@@ -1,0 +1,31 @@
+Инструкция:
+
+1. Скопировать проект из git
+
+2. В PowerShell или CMD перейти в папку, где лежит проект.
+ Запустить команду:
+ docker compose --file postgresql_compose.yml up
+Эта команда создаст контейнеры с базой и приложением.
+БД будет подключена на порт 5433.
+
+3. В swagger ui под адресу
+http://localhost:8080/swagger-ui.html
+можно увидеть доступные endpoint и их методы
+
+4. Из postman можно проверить методы, например, создание подразделения (POST)
+http://localhost:8080/api/department
+{
+    "fullName": "testing",
+    "shortName": "test",
+    "phoneNumber": "12398798"
+}
+
+Создание пользователя (POST)
+http://localhost:8080/api/person
+{
+    "name": "Sidorov",
+    "middleName": "Petr",
+    "surname": "Petrovich",
+    "date": "2010-11-11 11:11:11",
+    "departmentId": 1
+}
