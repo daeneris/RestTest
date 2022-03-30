@@ -1,23 +1,31 @@
 package ru.margarita.RestTestProject.Kafka;
 
+import lombok.NoArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import ru.margarita.RestTestProject.DTO.PersonDTO;
 import ru.margarita.RestTestProject.entity.NewPerson;
 
 @Service
+@NoArgsConstructor
 public class KafkaConsumer {
+//
+//    @KafkaListener(topics = "createdPerson", groupId = "group_id")
+//    public void consume(String message) {
+//        System.out.println("Consumed message: " + message);
+//    }
 
-    @KafkaListener(topics = "Kafka_Example", groupId = "group_id")
-    public void consume(String message) {
-        System.out.println("Consumed message: " + message);
-    }
 
-
-    @KafkaListener(topics = "Kafka_Example_json", groupId = "group_json",
+    //newPersonKafkaListenerFactory
+    //kafkaListenerContainerFactory
+    @KafkaListener(topics = "createdPerson", groupId = "group_json",
             containerFactory = "newPersonKafkaListenerFactory")
-    public void consumeJson(NewPerson newPerson) {
-        System.out.println("Consumed JSON Message: " + newPerson);
+    public void consumeJson(PersonDTO personDTO) {
+        System.out.println("Consumed JSON Message: " + personDTO);
     }
+
+
+
 }
 
 

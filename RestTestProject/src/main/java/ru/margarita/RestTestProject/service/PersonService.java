@@ -2,12 +2,15 @@ package ru.margarita.RestTestProject.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.margarita.RestTestProject.DTO.PersonDTO;
+import ru.margarita.RestTestProject.Kafka.KafkaProducer;
 import ru.margarita.RestTestProject.entity.Person;
 import ru.margarita.RestTestProject.mapper.PersonMapper;
 import ru.margarita.RestTestProject.repository.PersonRepo;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +20,27 @@ import java.util.List;
 public class PersonService {
     private final PersonRepo personRepo;
     private final PersonMapper personMapper;
+    private final KafkaProducer kafkaProducer;
 
+    @Value("${kafka.createdPerson}")
+    private String kafkaCreatedPerson;
+
+    @Value("${kafka.updatedPerson}")
+    private String kafkaUpdatedPerson;
+
+    @Value("${kafka.deletePerson}")
+    private String kafkaPersonToDelete;
+
+    @Transactional
     public PersonDTO create(PersonDTO personDTO) {
         Person person = personMapper.toPerson(personDTO);
         person = personRepo.save(person);
-        return personMapper.toPersonDTO(person);
+
+        PersonDTO newPersonDTO = personMapper.toPersonDTO(person);
+
+        kafkaProducer.sendKafka(kafkaCreatedPerson, newPersonDTO);
+
+        return newPersonDTO;
     }
 
     public PersonDTO getById(int id) {
@@ -74,11 +93,17 @@ public class PersonService {
     public void update (PersonDTO personDTO) {
         Person person = personMapper.toPerson(personDTO);
         Person personToUpdate = personRepo.findById(person.getId()).orElseThrow();
+
+  //      kafkaProducer.sendKafka(kafkaUpdatedPerson, person);
+
         personRepo.save(personToUpdate);
     }
 
     public void delete (int id) {
         Person personToDelete = personRepo.findById(id).orElseThrow();
+
+   //     kafkaProducer.sendKafka(kafkaPersonToDelete, personToDelete);
+
         personRepo.delete(personToDelete);
     }
 

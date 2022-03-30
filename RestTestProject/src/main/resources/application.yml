@@ -10,3 +10,7 @@ logging:
   level:
     web: trace
 
+kafka:
+  createdPerson: createdPerson
+  updatedPerson: updatedPerson
+  deletePerson: deletePerson

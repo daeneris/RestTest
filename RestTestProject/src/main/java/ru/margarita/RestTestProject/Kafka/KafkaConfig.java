@@ -11,7 +11,10 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+import ru.margarita.RestTestProject.DTO.PersonDTO;
 import ru.margarita.RestTestProject.entity.NewPerson;
+import ru.margarita.RestTestProject.entity.Person;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +44,7 @@ public class KafkaConfig {
 
 
     @Bean
-    public ConsumerFactory<String, NewPerson> newPersonConsumerFactory() {
+    public ConsumerFactory<String, PersonDTO> newPersonConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -49,18 +52,18 @@ public class KafkaConfig {
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
-                new JsonDeserializer<>(NewPerson.class));
+                new JsonDeserializer<>(PersonDTO.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, NewPerson> newPersonKafkaListenerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, NewPerson> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, PersonDTO> newPersonKafkaListenerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, PersonDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(newPersonConsumerFactory());
         return factory;
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    public ProducerFactory<String, PersonDTO> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -70,12 +73,13 @@ public class KafkaConfig {
                 StringSerializer.class);
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
+
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    public KafkaTemplate<String, PersonDTO> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
